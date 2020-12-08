@@ -1,6 +1,6 @@
-let coinSprite: Sprite = null
+let GoldCoin: Sprite = null
 effects.starField.startScreenEffect()
-let playerSprite = sprites.create(img`
+let Princess = sprites.create(img`
     . . . . . f f f f . . . . . 
     . . . f f 5 5 5 5 f f . . . 
     . . f 5 5 5 5 5 5 5 5 f . . 
@@ -18,10 +18,11 @@ let playerSprite = sprites.create(img`
     . . f f 3 b 3 b 3 3 f f . . 
     . . . . f f b b f f . . . . 
     `, SpriteKind.Player)
-controller.moveSprite(playerSprite)
-playerSprite.setFlag(SpriteFlag.StayInScreen, true)
+Princess.setFlag(SpriteFlag.StayInScreen, true)
+Princess.setPosition(75, 20)
+controller.moveSprite(Princess)
 for (let index = 0; index < 4; index++) {
-    coinSprite = sprites.create(img`
+    GoldCoin = sprites.create(img`
         . . . b b b . . 
         . . b 5 5 5 b . 
         . b 5 d 3 d 5 b 
@@ -30,7 +31,40 @@ for (let index = 0; index < 4; index++) {
         . c d d 1 d 5 c 
         . . f d d d f . 
         . . . f f f . . 
-        `, SpriteKind.Enemy)
-    coinSprite.x = randint(10, scene.screenWidth() - 10)
-    coinSprite.y = randint(10, scene.screenHeight() - 10)
+        `, SpriteKind.Food)
+    GoldCoin.x = randint(10, scene.screenWidth() - 10)
+    GoldCoin.y = randint(10, scene.screenHeight() - 10)
 }
+let EnemyBall = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . 4 4 4 5 5 4 4 4 . . . . 
+    . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+    . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+    . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+    . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+    . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+    . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+    . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+    . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+    . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+    . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+    . . . . 4 4 2 2 2 2 4 4 . . . . 
+    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+EnemyBall.setVelocity(50, 50)
+game.onUpdateInterval(500, function () {
+    if (EnemyBall.y > scene.screenHeight() - 10) {
+        EnemyBall.setVelocity(50, -50)
+    }
+    if (EnemyBall.x > scene.screenWidth() - 10) {
+        EnemyBall.setVelocity(-50, -50)
+    }
+    if (EnemyBall.y < 15) {
+        EnemyBall.setVelocity(-50, 50)
+    }
+    if (EnemyBall.x < 15) {
+        EnemyBall.setVelocity(50, 50)
+    }
+})

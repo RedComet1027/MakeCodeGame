@@ -1,3 +1,5 @@
+coinSprite: Sprite = None
+effects.star_field.start_screen_effect()
 playerSprite = sprites.create(img("""
         . . . . . f f f f . . . . . 
             . . . f f 5 5 5 5 f f . . . 
@@ -18,3 +20,18 @@ playerSprite = sprites.create(img("""
     """),
     SpriteKind.player)
 controller.move_sprite(playerSprite)
+playerSprite.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
+for index in range(4):
+    coinSprite = sprites.create(img("""
+            . . . b b b . . 
+                    . . b 5 5 5 b . 
+                    . b 5 d 3 d 5 b 
+                    . b 5 1 5 3 5 b 
+                    . c d 1 5 3 5 c 
+                    . c d d 1 d 5 c 
+                    . . f d d d f . 
+                    . . . f f f . .
+        """),
+        SpriteKind.enemy)
+    coinSprite.x = randint(10, scene.screen_width() - 10)
+    coinSprite.y = randint(10, scene.screen_height() - 10)

@@ -1,3 +1,5 @@
+let coinSprite: Sprite = null
+effects.starField.startScreenEffect()
 let playerSprite = sprites.create(img`
     . . . . . f f f f . . . . . 
     . . . f f 5 5 5 5 f f . . . 
@@ -18,14 +20,17 @@ let playerSprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(playerSprite)
 playerSprite.setFlag(SpriteFlag.StayInScreen, true)
-let coinSprite = sprites.create(img`
-    . . . b b b . . 
-    . . b 5 5 5 b . 
-    . b 5 d 3 d 5 b 
-    . b 5 1 5 3 5 b 
-    . c d 1 5 3 5 c 
-    . c d d 1 d 5 c 
-    . . f d d d f . 
-    . . . f f f . . 
-    `, SpriteKind.Food)
-coinSprite.setPosition(50, 50)
+for (let index = 0; index < 4; index++) {
+    coinSprite = sprites.create(img`
+        . . . b b b . . 
+        . . b 5 5 5 b . 
+        . b 5 d 3 d 5 b 
+        . b 5 1 5 3 5 b 
+        . c d 1 5 3 5 c 
+        . c d d 1 d 5 c 
+        . . f d d d f . 
+        . . . f f f . . 
+        `, SpriteKind.Enemy)
+    coinSprite.x = randint(10, scene.screenWidth() - 10)
+    coinSprite.y = randint(10, scene.screenHeight() - 10)
+}

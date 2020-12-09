@@ -56,15 +56,31 @@ let EnemyBall = sprites.create(img`
 EnemyBall.setVelocity(50, 50)
 game.onUpdateInterval(500, function () {
     if (EnemyBall.y > scene.screenHeight() - 10) {
-        EnemyBall.setVelocity(50, -50)
-    }
-    if (EnemyBall.x > scene.screenWidth() - 10) {
-        EnemyBall.setVelocity(-50, -50)
+        if (EnemyBall.vx > 0) {
+            EnemyBall.setVelocity(50, -50)
+        } else {
+            EnemyBall.setVelocity(-50, -50)
+        }
     }
     if (EnemyBall.y < 15) {
-        EnemyBall.setVelocity(-50, 50)
+        if (EnemyBall.vx > 0) {
+            EnemyBall.setVelocity(50, 50)
+        } else {
+            EnemyBall.setVelocity(-50, 50)
+        }
     }
     if (EnemyBall.x < 15) {
-        EnemyBall.setVelocity(50, 50)
+        if (EnemyBall.vy > 0) {
+            EnemyBall.setVelocity(50, 50)
+        } else {
+            EnemyBall.setVelocity(50, -50)
+        }
+    }
+    if (EnemyBall.x > scene.screenWidth() - 10) {
+        if (EnemyBall.vy > 0) {
+            EnemyBall.setVelocity(-50, 50)
+        } else {
+            EnemyBall.setVelocity(-50, -50)
+        }
     }
 })

@@ -43,28 +43,28 @@ function createBalls () {
     EnemyBall_2.setVelocity(-50, 50)
 }
 function move (ball: Sprite) {
-    if (ball.y > scene.screenHeight() - 10) {
+    if (ball.y > scene.screenHeight() - 20) {
         if (ball.vx > 0) {
             ball.setVelocity(50, -50)
         } else {
             ball.setVelocity(-50, -50)
         }
     }
-    if (ball.y < 15) {
+    if (ball.y < 20) {
         if (ball.vx > 0) {
             ball.setVelocity(50, 50)
         } else {
             ball.setVelocity(-50, 50)
         }
     }
-    if (ball.x < 15) {
+    if (ball.x < 20) {
         if (ball.vy > 0) {
             ball.setVelocity(50, 50)
         } else {
             ball.setVelocity(50, -50)
         }
     }
-    if (ball.x > scene.screenWidth() - 10) {
+    if (ball.x > scene.screenWidth() - 20) {
         if (EnemyBall_1.vy > 0) {
             ball.setVelocity(-50, 50)
         } else {
@@ -72,6 +72,13 @@ function move (ball: Sprite) {
         }
     }
 }
+/**
+ * Next:
+ * 
+ * - Get points when hit coins
+ * 
+ * - Lost live when hit balls
+ */
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
 let GoldCoin: Sprite = null

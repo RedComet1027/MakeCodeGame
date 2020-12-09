@@ -74,6 +74,7 @@ function move (ball: Sprite) {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     scene.cameraShake(4, 500)
+    music.powerDown.play()
     info.changeLifeBy(-1)
     EnemyBall_1.destroy()
     EnemyBall_2.destroy()

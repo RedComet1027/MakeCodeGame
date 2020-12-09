@@ -1,3 +1,79 @@
+function createBalls () {
+    EnemyBall_1 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_1.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_1.y = randint(10, scene.screenHeight() - 10)
+    EnemyBall_1.setVelocity(50, 50)
+    EnemyBall_2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_2.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_2.y = randint(10, scene.screenHeight() - 10)
+    EnemyBall_2.setVelocity(-50, 50)
+}
+function move (ball: Sprite) {
+    if (ball.y > scene.screenHeight() - 10) {
+        if (ball.vx > 0) {
+            ball.setVelocity(50, -50)
+        } else {
+            ball.setVelocity(-50, -50)
+        }
+    }
+    if (ball.y < 15) {
+        if (ball.vx > 0) {
+            ball.setVelocity(50, 50)
+        } else {
+            ball.setVelocity(-50, 50)
+        }
+    }
+    if (ball.x < 15) {
+        if (ball.vy > 0) {
+            ball.setVelocity(50, 50)
+        } else {
+            ball.setVelocity(50, -50)
+        }
+    }
+    if (ball.x > scene.screenWidth() - 10) {
+        if (EnemyBall_1.vy > 0) {
+            ball.setVelocity(-50, 50)
+        } else {
+            ball.setVelocity(-50, -50)
+        }
+    }
+}
+let EnemyBall_2: Sprite = null
+let EnemyBall_1: Sprite = null
 let GoldCoin: Sprite = null
 effects.starField.startScreenEffect()
 let Princess = sprites.create(img`
@@ -35,52 +111,8 @@ for (let index = 0; index < 4; index++) {
     GoldCoin.x = randint(10, scene.screenWidth() - 10)
     GoldCoin.y = randint(10, scene.screenHeight() - 10)
 }
-let EnemyBall = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . 4 4 4 4 . . . . . . 
-    . . . . 4 4 4 5 5 4 4 4 . . . . 
-    . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-    . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-    . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-    . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-    . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-    . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-    . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-    . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-    . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-    . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-    . . . . 4 4 2 2 2 2 4 4 . . . . 
-    . . . . . . 4 4 4 4 . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Enemy)
-EnemyBall.setVelocity(50, 50)
+createBalls()
 game.onUpdateInterval(500, function () {
-    if (EnemyBall.y > scene.screenHeight() - 10) {
-        if (EnemyBall.vx > 0) {
-            EnemyBall.setVelocity(50, -50)
-        } else {
-            EnemyBall.setVelocity(-50, -50)
-        }
-    }
-    if (EnemyBall.y < 15) {
-        if (EnemyBall.vx > 0) {
-            EnemyBall.setVelocity(50, 50)
-        } else {
-            EnemyBall.setVelocity(-50, 50)
-        }
-    }
-    if (EnemyBall.x < 15) {
-        if (EnemyBall.vy > 0) {
-            EnemyBall.setVelocity(50, 50)
-        } else {
-            EnemyBall.setVelocity(50, -50)
-        }
-    }
-    if (EnemyBall.x > scene.screenWidth() - 10) {
-        if (EnemyBall.vy > 0) {
-            EnemyBall.setVelocity(-50, 50)
-        } else {
-            EnemyBall.setVelocity(-50, -50)
-        }
-    }
+    move(EnemyBall_1)
+    move(EnemyBall_2)
 })

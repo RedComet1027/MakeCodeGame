@@ -72,6 +72,12 @@ function move (ball: Sprite) {
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    scene.cameraShake(4, 500)
+    info.changeLifeBy(-1)
+    EnemyBall_1.destroy()
+    EnemyBall_2.destroy()
+})
 /**
  * Next:
  * 
@@ -104,6 +110,7 @@ let Princess = sprites.create(img`
 Princess.setFlag(SpriteFlag.StayInScreen, true)
 Princess.setPosition(75, 20)
 controller.moveSprite(Princess)
+info.setLife(3)
 for (let index = 0; index < 4; index++) {
     GoldCoin = sprites.create(img`
         . . . b b b . . 

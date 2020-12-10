@@ -76,21 +76,26 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     scene.cameraShake(4, 500)
     music.powerDown.play()
     info.changeLifeBy(-1)
+    Princess.setPosition(80, 10)
     EnemyBall_1.destroy()
     EnemyBall_2.destroy()
+    createBalls()
 })
 /**
  * Next:
  * 
  * - Get points when hit coins
  * 
+ * Done:
+ * 
  * - Lost live when hit balls
  */
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
 let GoldCoin: Sprite = null
+let Princess: Sprite = null
 effects.starField.startScreenEffect()
-let Princess = sprites.create(img`
+Princess = sprites.create(img`
     . . . . . f f f f . . . . . 
     . . . f f 5 5 5 5 f f . . . 
     . . f 5 5 5 5 5 5 5 5 f . . 
@@ -109,7 +114,7 @@ let Princess = sprites.create(img`
     . . . . f f b b f f . . . . 
     `, SpriteKind.Player)
 Princess.setFlag(SpriteFlag.StayInScreen, true)
-Princess.setPosition(75, 20)
+Princess.setPosition(80, 10)
 controller.moveSprite(Princess)
 info.setLife(3)
 for (let index = 0; index < 4; index++) {

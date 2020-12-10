@@ -1,16 +1,3 @@
-/**
- * Next:
- * 
- * - Place coins evenly
- * 
- * Done:
- * 
- * - Add game win condition
- * 
- * - Lost live when hit balls
- * 
- * - Get points when hit coins
- */
 function createPrincess () {
     Princess = sprites.create(img`
         . . . . . f f f f . . . . . 
@@ -34,6 +21,73 @@ function createPrincess () {
     Princess.setPosition(80, 10)
     controller.moveSprite(Princess)
     info.setLife(3)
+}
+/**
+ * Next:
+ * 
+ * - Place coins evenly
+ * 
+ * Done:
+ * 
+ * - Add game win condition
+ * 
+ * - Lost live when hit balls
+ * 
+ * - Get points when hit coins
+ */
+function createCoins2 () {
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 30)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 50)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 70)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 90)
+    }
 }
 function createBalls () {
     EnemyBall_1 = sprites.create(img`
@@ -139,18 +193,18 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     EnemyBall_2.destroy()
     createBalls()
 })
-let GoldCoin: Sprite = null
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
+let GoldCoin: Sprite = null
 let Princess: Sprite = null
 effects.starField.startScreenEffect()
 createPrincess()
-createCoins()
 createBalls()
+createCoins2()
 game.onUpdateInterval(500, function () {
     move(EnemyBall_1)
     move(EnemyBall_2)
-    if (info.score() == 1000) {
+    if (info.score() == 4000) {
         game.over(true, effects.confetti)
     }
 })

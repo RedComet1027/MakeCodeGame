@@ -44,8 +44,8 @@ function createBalls () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     music.magicWand.play()
-    otherSprite.destroy(effects.warmRadial, 500)
     info.changeScoreBy(100)
+    otherSprite.destroy(effects.fire, 500)
 })
 function move (ball: Sprite) {
     if (ball.y > scene.screenHeight() - 20) {
@@ -89,13 +89,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 /**
  * Next:
  * 
- * - refactor???
+ * - To do more features
  * 
  * Done:
  * 
- * - Get points when hit coins
- * 
  * - Lost live when hit balls
+ * 
+ * - Get points when hit coins
  */
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null

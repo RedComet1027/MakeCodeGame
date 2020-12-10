@@ -42,6 +42,11 @@ function createBalls () {
     EnemyBall_2.y = randint(10, scene.screenHeight() - 10)
     EnemyBall_2.setVelocity(-50, 50)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    music.magicWand.play()
+    otherSprite.destroy(effects.warmRadial, 500)
+    info.changeScoreBy(100)
+})
 function move (ball: Sprite) {
     if (ball.y > scene.screenHeight() - 20) {
         if (ball.vx > 0) {
@@ -84,9 +89,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 /**
  * Next:
  * 
- * - Get points when hit coins
+ * - refactor???
  * 
  * Done:
+ * 
+ * - Get points when hit coins
  * 
  * - Lost live when hit balls
  */
@@ -117,7 +124,7 @@ Princess.setFlag(SpriteFlag.StayInScreen, true)
 Princess.setPosition(80, 10)
 controller.moveSprite(Princess)
 info.setLife(3)
-for (let index = 0; index < 4; index++) {
+for (let index = 0; index < 10; index++) {
     GoldCoin = sprites.create(img`
         . . . b b b . . 
         . . b 5 5 5 b . 

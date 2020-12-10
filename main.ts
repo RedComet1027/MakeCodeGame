@@ -1,3 +1,18 @@
+/**
+ * Next:
+ * 
+ * - TBD
+ * 
+ * Done:
+ * 
+ * - Place coins evenly
+ * 
+ * - Add game win condition
+ * 
+ * - Lost live when hit balls
+ * 
+ * - Get points when hit coins
+ */
 function createPrincess () {
     Princess = sprites.create(img`
         . . . . . f f f f . . . . . 
@@ -22,19 +37,6 @@ function createPrincess () {
     controller.moveSprite(Princess)
     info.setLife(3)
 }
-/**
- * Next:
- * 
- * - Place coins evenly
- * 
- * Done:
- * 
- * - Add game win condition
- * 
- * - Lost live when hit balls
- * 
- * - Get points when hit coins
- */
 function createCoins2 () {
     for (let index = 0; index <= 9; index++) {
         GoldCoin = sprites.create(img`

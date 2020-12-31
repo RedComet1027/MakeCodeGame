@@ -33,24 +33,11 @@ function createPrincess () {
         . . . . f f b b f f . . . . 
         `, SpriteKind.Player)
     Princess.setFlag(SpriteFlag.StayInScreen, true)
-    Princess.setPosition(80, 10)
+    Princess.setPosition(80, 20)
     controller.moveSprite(Princess)
     info.setLife(3)
 }
 function createCoins2 () {
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 30)
-    }
     for (let index = 0; index <= 9; index++) {
         GoldCoin = sprites.create(img`
             . . . b b b . . 
@@ -90,7 +77,33 @@ function createCoins2 () {
             `, SpriteKind.Food)
         GoldCoin.setPosition((index + 1) * 15, 90)
     }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 110)
+    }
 }
+function loseLife () {
+    scene.cameraShake(4, 500)
+    music.powerDown.play()
+    info.changeLifeBy(-1)
+    Princess.setPosition(80, 20)
+    EnemyBall_1.destroy()
+    EnemyBall_2.destroy()
+    createBalls()
+    info.startCountdown(10)
+}
+info.onCountdownEnd(function () {
+    loseLife()
+})
 function createBalls () {
     EnemyBall_1 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -187,13 +200,7 @@ function move (ball: Sprite) {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    scene.cameraShake(4, 500)
-    music.powerDown.play()
-    info.changeLifeBy(-1)
-    Princess.setPosition(80, 10)
-    EnemyBall_1.destroy()
-    EnemyBall_2.destroy()
-    createBalls()
+    loseLife()
 })
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
@@ -203,6 +210,7 @@ effects.starField.startScreenEffect()
 createPrincess()
 createBalls()
 createCoins2()
+info.startCountdown(10)
 game.onUpdateInterval(500, function () {
     move(EnemyBall_1)
     move(EnemyBall_2)

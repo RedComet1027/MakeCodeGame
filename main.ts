@@ -1,7 +1,9 @@
 /**
  * Next:
  * 
- * - TBD
+ * - Remove ball boucing codes
+ * 
+ * - Add one more ball for level up
  * 
  * Done:
  * 
@@ -12,6 +14,8 @@
  * - Lost live when hit balls
  * 
  * - Get points when hit coins
+ * 
+ * - Add timeout
  */
 function createPrincess () {
     Princess = sprites.create(img`

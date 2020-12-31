@@ -3,6 +3,8 @@
  * 
  * - Remove ball boucing codes
  * 
+ * - Start the balls from corners
+ * 
  * - Add the fourth ball
  * 
  * Done:

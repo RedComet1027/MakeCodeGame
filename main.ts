@@ -99,7 +99,7 @@ function loseLife () {
     EnemyBall_1.destroy()
     EnemyBall_2.destroy()
     createBalls()
-    info.startCountdown(10)
+    info.startCountdown(timeOut)
 }
 info.onCountdownEnd(function () {
     loseLife()
@@ -206,11 +206,13 @@ let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
 let GoldCoin: Sprite = null
 let Princess: Sprite = null
+let timeOut = 0
 effects.starField.startScreenEffect()
 createPrincess()
 createBalls()
 createCoins2()
-info.startCountdown(10)
+timeOut = 15
+info.startCountdown(timeOut)
 game.onUpdateInterval(500, function () {
     move(EnemyBall_1)
     move(EnemyBall_2)

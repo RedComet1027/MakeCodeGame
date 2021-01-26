@@ -20,18 +20,23 @@ function createPrincess () {
     Princess.setFlag(SpriteFlag.StayInScreen, true)
     Princess.setPosition(80, 20)
     controller.moveSprite(Princess)
-    info.setLife(3)
+}
+function startStage () {
+    if (firstStart == 1) {
+        effects.starField.startScreenEffect()
+        createCoins()
+        firstStart = 0
+    }
+    createPrincess()
+    createBalls()
+    info.startCountdown(timeOut)
 }
 function loseLife () {
     scene.cameraShake(4, 500)
     music.powerDown.play()
     info.changeLifeBy(-1)
-    Princess.setPosition(80, 20)
-    for (let index = 0; index <= EnemyBalls.length - 1; index++) {
-        EnemyBalls[index].destroy()
-    }
-    createBalls()
-    info.startCountdown(timeOut)
+    cleanStage()
+    startStage()
 }
 info.onCountdownEnd(function () {
     loseLife()
@@ -68,7 +73,6 @@ function deprecated_move (ball: Sprite) {
 }
 function createBalls () {
     EnemyBalls = []
-    numOfBalls = 4
     for (let index = 0; index < numOfBalls; index++) {
         EnemyBall = sprites.create(img`
             . . . . . . . . . . . . . . . . 
@@ -90,7 +94,7 @@ function createBalls () {
             `, SpriteKind.Enemy)
         EnemyBall.x = randint(10, scene.screenWidth() - 10)
         EnemyBall.y = randint(40, scene.screenHeight() - 10)
-        EnemyBall.setVelocity(50, 50)
+        EnemyBall.setVelocity(ballSpeed, ballSpeed)
         EnemyBall.setBounceOnWall(true)
         EnemyBalls.push(EnemyBall)
     }
@@ -154,13 +158,19 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     info.changeScoreBy(100)
     otherSprite.destroy(effects.fire, 500)
 })
+function cleanStage () {
+    Princess.destroy()
+    for (let index = 0; index <= EnemyBalls.length - 1; index++) {
+        EnemyBalls[index].destroy()
+    }
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     loseLife()
 })
 /**
  * Next:
  * 
- * - Refactor to clean/restart stage
+ * - Put in comments on new codes
  * 
  * - Start the balls from corners
  * 
@@ -185,6 +195,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
  * - Deprecated old functions
  * 
  * - Refactor ball creation codes
+ * 
+ * - Refactor to clean/restart stage
  */
 function createCoins_atRandPos () {
     for (let index = 0; index < 10; index++) {
@@ -204,16 +216,18 @@ function createCoins_atRandPos () {
 }
 let GoldCoin: Sprite = null
 let EnemyBall: Sprite = null
-let numOfBalls = 0
 let EnemyBalls: Sprite[] = []
 let Princess: Sprite = null
+let firstStart = 0
+let ballSpeed = 0
 let timeOut = 0
-effects.starField.startScreenEffect()
-createPrincess()
-createBalls()
-createCoins()
+let numOfBalls = 0
+info.setLife(3)
+numOfBalls = 4
 timeOut = 15
-info.startCountdown(timeOut)
+ballSpeed = 50
+firstStart = 1
+startStage()
 game.onUpdateInterval(500, function () {
     if (info.score() == 4000) {
         game.over(true, effects.confetti)

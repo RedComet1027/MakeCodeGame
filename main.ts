@@ -1,3 +1,34 @@
+/**
+ * Next:
+ * 
+ * - Put in comments on new codes
+ * 
+ * - Start the balls from corners
+ * 
+ * Done:
+ * 
+ * - Place coins evenly
+ * 
+ * - Add game win condition
+ * 
+ * - Lost live when hit balls
+ * 
+ * - Get points when hit coins
+ * 
+ * - Add timeout
+ * 
+ * - Add a third ball
+ * 
+ * - Add the fourth ball
+ * 
+ * - Remove ball boucing codes
+ * 
+ * - Deprecated old functions
+ * 
+ * - Refactor ball creation codes
+ * 
+ * - Refactor to clean/restart stage
+ */
 function createPrincess () {
     Princess = sprites.create(img`
         . . . . . f f f f . . . . . 
@@ -167,37 +198,6 @@ function cleanStage () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     loseLife()
 })
-/**
- * Next:
- * 
- * - Put in comments on new codes
- * 
- * - Start the balls from corners
- * 
- * Done:
- * 
- * - Place coins evenly
- * 
- * - Add game win condition
- * 
- * - Lost live when hit balls
- * 
- * - Get points when hit coins
- * 
- * - Add timeout
- * 
- * - Add a third ball
- * 
- * - Add the fourth ball
- * 
- * - Remove ball boucing codes
- * 
- * - Deprecated old functions
- * 
- * - Refactor ball creation codes
- * 
- * - Refactor to clean/restart stage
- */
 function createCoins_atRandPos () {
     for (let index = 0; index < 10; index++) {
         GoldCoin = sprites.create(img`

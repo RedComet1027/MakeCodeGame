@@ -1,26 +1,3 @@
-/**
- * Next:
- * 
- * - Remove ball boucing codes
- * 
- * - Start the balls from corners
- * 
- * Done:
- * 
- * - Place coins evenly
- * 
- * - Add game win condition
- * 
- * - Lost live when hit balls
- * 
- * - Get points when hit coins
- * 
- * - Add timeout
- * 
- * - Add a third ball
- * 
- * - Add the fourth ball
- */
 function createPrincess () {
     Princess = sprites.create(img`
         . . . . . f f f f . . . . . 
@@ -45,60 +22,6 @@ function createPrincess () {
     controller.moveSprite(Princess)
     info.setLife(3)
 }
-function createCoins2 () {
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 50)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 70)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 90)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 110)
-    }
-}
 function loseLife () {
     scene.cameraShake(4, 500)
     music.powerDown.play()
@@ -111,8 +34,19 @@ function loseLife () {
     createBalls()
     info.startCountdown(timeOut)
 }
+function loseLife2 () {
+    scene.cameraShake(4, 500)
+    music.powerDown.play()
+    info.changeLifeBy(-1)
+    Princess.setPosition(80, 20)
+    for (let index = 0; index <= EnemyBalls.length - 1; index++) {
+        EnemyBalls[index].destroy()
+    }
+    createBalls2()
+    info.startCountdown(timeOut)
+}
 info.onCountdownEnd(function () {
-    loseLife()
+    loseLife2()
 })
 function deprecated_move (ball: Sprite) {
     if (ball.y > scene.screenHeight() - 20) {
@@ -234,7 +168,123 @@ function createBalls () {
     EnemyBall_4.setVelocity(-50, 50)
     EnemyBall_4.setBounceOnWall(true)
 }
+function createBalls2 () {
+    EnemyBalls = []
+    numOfBalls = 4
+    for (let index = 0; index < numOfBalls; index++) {
+        EnemyBall = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 4 4 4 4 . . . . . . 
+            . . . . 4 4 4 5 5 4 4 4 . . . . 
+            . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+            . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+            . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+            . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+            . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+            . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+            . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+            . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+            . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+            . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+            . . . . 4 4 2 2 2 2 4 4 . . . . 
+            . . . . . . 4 4 4 4 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy)
+        EnemyBall.x = randint(10, scene.screenWidth() - 10)
+        EnemyBall.y = randint(40, scene.screenHeight() - 10)
+        EnemyBall.setVelocity(50, 50)
+        EnemyBall.setBounceOnWall(true)
+        EnemyBalls.push(EnemyBall)
+    }
+}
 function createCoins () {
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 50)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 70)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 90)
+    }
+    for (let index = 0; index <= 9; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.setPosition((index + 1) * 15, 110)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    music.magicWand.play()
+    info.changeScoreBy(100)
+    otherSprite.destroy(effects.fire, 500)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    loseLife2()
+})
+/**
+ * Next:
+ * 
+ * - Start the balls from corners
+ * 
+ * Done:
+ * 
+ * - Place coins evenly
+ * 
+ * - Add game win condition
+ * 
+ * - Lost live when hit balls
+ * 
+ * - Get points when hit coins
+ * 
+ * - Add timeout
+ * 
+ * - Add a third ball
+ * 
+ * - Add the fourth ball
+ * 
+ * - Remove ball boucing codes
+ * 
+ * - Refactor ball creation codes
+ */
+function createCoins_atRandPos () {
     for (let index = 0; index < 10; index++) {
         GoldCoin = sprites.create(img`
             . . . b b b . . 
@@ -250,25 +300,20 @@ function createCoins () {
         GoldCoin.y = randint(10, scene.screenHeight() - 10)
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    music.magicWand.play()
-    info.changeScoreBy(100)
-    otherSprite.destroy(effects.fire, 500)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    loseLife()
-})
+let GoldCoin: Sprite = null
+let EnemyBall: Sprite = null
+let numOfBalls = 0
+let EnemyBalls: Sprite[] = []
 let EnemyBall_4: Sprite = null
 let EnemyBall_3: Sprite = null
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
-let GoldCoin: Sprite = null
 let Princess: Sprite = null
 let timeOut = 0
 effects.starField.startScreenEffect()
 createPrincess()
-createBalls()
-createCoins2()
+createBalls2()
+createCoins()
 timeOut = 15
 info.startCountdown(timeOut)
 game.onUpdateInterval(500, function () {

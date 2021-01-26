@@ -107,6 +107,7 @@ function loseLife () {
     EnemyBall_1.destroy()
     EnemyBall_2.destroy()
     EnemyBall_3.destroy()
+    EnemyBall_4.destroy()
     createBalls()
     info.startCountdown(timeOut)
 }
@@ -133,7 +134,7 @@ function createBalls () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
     EnemyBall_1.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_1.y = randint(10, scene.screenHeight() - 10)
+    EnemyBall_1.y = randint(40, scene.screenHeight() - 10)
     EnemyBall_1.setVelocity(50, 50)
     EnemyBall_2 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -154,7 +155,7 @@ function createBalls () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
     EnemyBall_2.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_2.y = randint(10, scene.screenHeight() - 10)
+    EnemyBall_2.y = randint(40, scene.screenHeight() - 10)
     EnemyBall_2.setVelocity(-50, 50)
     EnemyBall_3 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -175,8 +176,29 @@ function createBalls () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
     EnemyBall_3.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_3.y = randint(10, scene.screenHeight() - 10)
+    EnemyBall_3.y = randint(40, scene.screenHeight() - 10)
     EnemyBall_3.setVelocity(-50, 50)
+    EnemyBall_4 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_4.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_4.y = randint(40, scene.screenHeight() - 10)
+    EnemyBall_4.setVelocity(-50, 50)
 }
 function createCoins () {
     for (let index = 0; index < 10; index++) {
@@ -232,6 +254,7 @@ function move (ball: Sprite) {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     loseLife()
 })
+let EnemyBall_4: Sprite = null
 let EnemyBall_3: Sprite = null
 let EnemyBall_2: Sprite = null
 let EnemyBall_1: Sprite = null
@@ -248,6 +271,7 @@ game.onUpdateInterval(500, function () {
     move(EnemyBall_1)
     move(EnemyBall_2)
     move(EnemyBall_3)
+    move(EnemyBall_4)
     if (info.score() == 4000) {
         game.over(true, effects.confetti)
     }

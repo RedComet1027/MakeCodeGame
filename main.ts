@@ -5,8 +5,6 @@
  * 
  * - Start the balls from corners
  * 
- * - Add the fourth ball
- * 
  * Done:
  * 
  * - Place coins evenly
@@ -20,6 +18,8 @@
  * - Add timeout
  * 
  * - Add a third ball
+ * 
+ * - Add the fourth ball
  */
 function createPrincess () {
     Princess = sprites.create(img`
@@ -114,114 +114,7 @@ function loseLife () {
 info.onCountdownEnd(function () {
     loseLife()
 })
-function createBalls () {
-    EnemyBall_1 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . 4 4 4 5 5 4 4 4 . . . . 
-        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-        . . . . 4 4 2 2 2 2 4 4 . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
-    EnemyBall_1.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_1.y = randint(40, scene.screenHeight() - 10)
-    EnemyBall_1.setVelocity(50, 50)
-    EnemyBall_2 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . 4 4 4 5 5 4 4 4 . . . . 
-        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-        . . . . 4 4 2 2 2 2 4 4 . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
-    EnemyBall_2.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_2.y = randint(40, scene.screenHeight() - 10)
-    EnemyBall_2.setVelocity(-50, 50)
-    EnemyBall_3 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . 4 4 4 5 5 4 4 4 . . . . 
-        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-        . . . . 4 4 2 2 2 2 4 4 . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
-    EnemyBall_3.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_3.y = randint(40, scene.screenHeight() - 10)
-    EnemyBall_3.setVelocity(-50, 50)
-    EnemyBall_4 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . 4 4 4 5 5 4 4 4 . . . . 
-        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-        . . . . 4 4 2 2 2 2 4 4 . . . . 
-        . . . . . . 4 4 4 4 . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy)
-    EnemyBall_4.x = randint(10, scene.screenWidth() - 10)
-    EnemyBall_4.y = randint(40, scene.screenHeight() - 10)
-    EnemyBall_4.setVelocity(-50, 50)
-}
-function createCoins () {
-    for (let index = 0; index < 10; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.x = randint(10, scene.screenWidth() - 10)
-        GoldCoin.y = randint(10, scene.screenHeight() - 10)
-    }
-}
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    music.magicWand.play()
-    info.changeScoreBy(100)
-    otherSprite.destroy(effects.fire, 500)
-})
-function move (ball: Sprite) {
+function deprecated_move (ball: Sprite) {
     if (ball.y > scene.screenHeight() - 20) {
         if (ball.vx > 0) {
             ball.setVelocity(50, -50)
@@ -251,6 +144,117 @@ function move (ball: Sprite) {
         }
     }
 }
+function createBalls () {
+    EnemyBall_1 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_1.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_1.y = randint(40, scene.screenHeight() - 10)
+    EnemyBall_1.setVelocity(50, 50)
+    EnemyBall_1.setBounceOnWall(true)
+    EnemyBall_2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_2.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_2.y = randint(40, scene.screenHeight() - 10)
+    EnemyBall_2.setVelocity(-50, 50)
+    EnemyBall_2.setBounceOnWall(true)
+    EnemyBall_3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_3.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_3.y = randint(40, scene.screenHeight() - 10)
+    EnemyBall_3.setVelocity(-50, 50)
+    EnemyBall_3.setBounceOnWall(true)
+    EnemyBall_4 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . 4 4 4 5 5 4 4 4 . . . . 
+        . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+        . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+        . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+        . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+        . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+        . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+        . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+        . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+        . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+        . . . . 4 4 2 2 2 2 4 4 . . . . 
+        . . . . . . 4 4 4 4 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    EnemyBall_4.x = randint(10, scene.screenWidth() - 10)
+    EnemyBall_4.y = randint(40, scene.screenHeight() - 10)
+    EnemyBall_4.setVelocity(-50, 50)
+    EnemyBall_4.setBounceOnWall(true)
+}
+function createCoins () {
+    for (let index = 0; index < 10; index++) {
+        GoldCoin = sprites.create(img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `, SpriteKind.Food)
+        GoldCoin.x = randint(10, scene.screenWidth() - 10)
+        GoldCoin.y = randint(10, scene.screenHeight() - 10)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    music.magicWand.play()
+    info.changeScoreBy(100)
+    otherSprite.destroy(effects.fire, 500)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     loseLife()
 })
@@ -268,10 +272,6 @@ createCoins2()
 timeOut = 15
 info.startCountdown(timeOut)
 game.onUpdateInterval(500, function () {
-    move(EnemyBall_1)
-    move(EnemyBall_2)
-    move(EnemyBall_3)
-    move(EnemyBall_4)
     if (info.score() == 4000) {
         game.over(true, effects.confetti)
     }

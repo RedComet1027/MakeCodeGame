@@ -1,8 +1,6 @@
 /**
  * Next:
  * 
- * - Put in comments on new codes
- * 
  * - Start the balls from corners
  * 
  * Done:
@@ -28,6 +26,10 @@
  * - Refactor ball creation codes
  * 
  * - Refactor to clean/restart stage
+ * 
+ * - Put in comments on new codes
+ * 
+ * - Refactor createCoins
  */
 function createPrincess () {
     Princess = sprites.create(img`
@@ -53,9 +55,11 @@ function createPrincess () {
     controller.moveSprite(Princess)
 }
 function startStage () {
+    // only create background and coins when start game first time
     if (firstStart == 1) {
         effects.starField.startScreenEffect()
         createCoins()
+        // reset game first start flag
         firstStart = 0
     }
     createPrincess()
@@ -103,6 +107,7 @@ function deprecated_move (ball: Sprite) {
     }
 }
 function createBalls () {
+    // create an empty array for all enemy balls
     EnemyBalls = []
     for (let index = 0; index < numOfBalls; index++) {
         EnemyBall = sprites.create(img`
@@ -127,61 +132,29 @@ function createBalls () {
         EnemyBall.y = randint(40, scene.screenHeight() - 10)
         EnemyBall.setVelocity(ballSpeed, ballSpeed)
         EnemyBall.setBounceOnWall(true)
+        // add each ball to enemy balls array
         EnemyBalls.push(EnemyBall)
     }
 }
 function createCoins () {
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 50)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 70)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 90)
-    }
-    for (let index = 0; index <= 9; index++) {
-        GoldCoin = sprites.create(img`
-            . . . b b b . . 
-            . . b 5 5 5 b . 
-            . b 5 d 3 d 5 b 
-            . b 5 1 5 3 5 b 
-            . c d 1 5 3 5 c 
-            . c d d 1 d 5 c 
-            . . f d d d f . 
-            . . . f f f . . 
-            `, SpriteKind.Food)
-        GoldCoin.setPosition((index + 1) * 15, 110)
+    // set coins starting position Y
+    coinsPosY = 50
+    for (let index = 0; index < 4; index++) {
+        for (let index = 0; index <= 9; index++) {
+            GoldCoin = sprites.create(img`
+                . . . b b b . . 
+                . . b 5 5 5 b . 
+                . b 5 d 3 d 5 b 
+                . b 5 1 5 3 5 b 
+                . c d 1 5 3 5 c 
+                . c d d 1 d 5 c 
+                . . f d d d f . 
+                . . . f f f . . 
+                `, SpriteKind.Food)
+            GoldCoin.setPosition((index + 1) * 15, coinsPosY)
+        }
+        // move to coins next position Y
+        coinsPosY += 20
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
@@ -191,6 +164,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
 })
 function cleanStage () {
     Princess.destroy()
+    // destroy all elements in EnemyBalls array
     for (let index = 0; index <= EnemyBalls.length - 1; index++) {
         EnemyBalls[index].destroy()
     }
@@ -215,6 +189,7 @@ function createCoins_atRandPos () {
     }
 }
 let GoldCoin: Sprite = null
+let coinsPosY = 0
 let EnemyBall: Sprite = null
 let EnemyBalls: Sprite[] = []
 let Princess: Sprite = null
@@ -226,6 +201,7 @@ info.setLife(3)
 numOfBalls = 4
 timeOut = 15
 ballSpeed = 50
+// set game start flag for startStage
 firstStart = 1
 startStage()
 game.onUpdateInterval(500, function () {
